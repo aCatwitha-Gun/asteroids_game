@@ -8,8 +8,13 @@ def main():
     
     # initialize all of pygame
     pygame.init()
+
     # set the display screen dimensions
     screen = pygame.display.set_mode(size=(SCREEN_WIDTH, SCREEN_HEIGHT))
+
+    # setup delta time check
+    clock = pygame.time.Clock()
+    dt = 0
 
     # inifinit while loop used for the game loop
     while True:
@@ -23,6 +28,9 @@ def main():
 
         # refresh the screen
         pygame.display.flip()
+
+        # return delta time and limit framerate to 60 FPS
+        dt = clock.tick(60) / 1000
 
 if __name__ == "__main__":
     main()
