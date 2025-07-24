@@ -5,10 +5,15 @@ from player import Player
 def main():
     # initialize all of pygame
     pygame.init()
-
     screen = pygame.display.set_mode(size=(SCREEN_WIDTH, SCREEN_HEIGHT))
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     clock = pygame.time.Clock()
+
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    Player.containers = (updatable, drawable)
+
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     dt = 0
 
     # inifinit while loop used for the game loop
@@ -19,15 +24,20 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
+        updatable.update(dt)
+
         # fill the screen with black
         screen.fill("black")
+
+        for obj in drawable:
+            obj.draw(screen)
 
         # draw player object
         player.draw(screen)
 
         # check for player rotation
         player.update(dt)
-        
+
         # refresh the screen
         pygame.display.flip()
 
