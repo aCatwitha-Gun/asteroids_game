@@ -1,18 +1,13 @@
 import pygame
 from constants import *
+from player import Player
 
 def main():
-    print("Starting Asteroids!")
-    print(f"Screen width: {SCREEN_WIDTH}")
-    print(f"Screen height: {SCREEN_HEIGHT}")
-    
     # initialize all of pygame
     pygame.init()
-
-    # set the display screen dimensions
+    
     screen = pygame.display.set_mode(size=(SCREEN_WIDTH, SCREEN_HEIGHT))
-
-    # setup delta time check
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     clock = pygame.time.Clock()
     dt = 0
 
@@ -25,7 +20,10 @@ def main():
                 return
 
         # fill the screen with black
-        screen.fill(black)
+        screen.fill("black")
+
+        # draw player object
+        player.draw(screen)
 
         # refresh the screen
         pygame.display.flip()
