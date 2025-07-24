@@ -19,6 +19,7 @@ def main():
     # inifinit while loop used for the game loop
     while True:
         
+        # enable the x to quit button on game window
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
