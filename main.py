@@ -5,7 +5,7 @@ from player import Player
 def main():
     # initialize all of pygame
     pygame.init()
-    
+
     screen = pygame.display.set_mode(size=(SCREEN_WIDTH, SCREEN_HEIGHT))
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     clock = pygame.time.Clock()
@@ -25,6 +25,9 @@ def main():
         # draw player object
         player.draw(screen)
 
+        # check for player rotation
+        player.update(dt)
+        
         # refresh the screen
         pygame.display.flip()
 
