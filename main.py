@@ -4,12 +4,12 @@ from player import Player
 from shot import Shot
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from title import start_screen
 
 def main():
     # initialize all of pygame
     pygame.init()
     screen = pygame.display.set_mode(size=(SCREEN_WIDTH, SCREEN_HEIGHT))
-    clock = pygame.time.Clock()
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
@@ -26,44 +26,46 @@ def main():
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     dt = 0
 
-    # inifinit while loop used for the game loop
-    while True:
-        
-        # enable the x to quit button on game window
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                return
+    if start_screen(screen, dt):
 
-        updatable.update(dt)
+        # inifinit while loop used for the game loop
+        while True:
+            
+            # enable the x to quit button on game window
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return
 
-        # collision check for player death
-        for asteroid in asteroids:
-            if player.collision(asteroid):
-                print("Game over!")
-                return
-            # collision check for asteroid kill
-            for shot in shots:
-                if shot.collision(asteroid):
-                    asteroid.split(asteroid.position)
-                    shot.kill()
- 
-        # fill the screen with black
-        screen.fill("black")
+            updatable.update(dt)
 
-        for obj in drawable:
-            obj.draw(screen)
+            # collision check for player death
+            for asteroid in asteroids:
+                if player.collision(asteroid):
+                    print("Game over!")
+                    return
+                # collision check for asteroid kill
+                for shot in shots:
+                    if shot.collision(asteroid):
+                        asteroid.split(asteroid.position)
+                        shot.kill()
+    
+            # fill the screen with black
+            screen.fill("black")
 
-        # draw player object
-        player.draw(screen)
+            for obj in drawable:
+                obj.draw(screen)
 
-        # check for player rotation
-        player.update(dt)
+            # draw player object
+            player.draw(screen)
 
-        # refresh the screen
-        pygame.display.flip()
+            # check for player rotation
+            player.update(dt)
 
-        # return delta time and limit framerate to 60 FPS
-        dt = clock.tick(60) / 1000
+            # refresh the screen
+            pygame.display.flip()
+
+            # return delta time and limit framerate to 60 FPS
+            dt = clock.tick(60) / 1000
 
 if __name__ == "__main__":
     main()
