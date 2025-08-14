@@ -20,7 +20,7 @@ def start_screen(screen, dt):
     while waiting:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return False
+                return "QUIT"
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     player.kill()
@@ -41,4 +41,4 @@ def start_screen(screen, dt):
         pygame.display.flip()
         dt = clock.tick(60) / 1000
 
-    return True
+    return "PLAYING"
