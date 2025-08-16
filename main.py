@@ -45,14 +45,14 @@ def game_loop(screen, dt):
         # enable the x to quit button on game window
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return
+                return "QUIT"
 
         updatable.update(dt)
 
         # collision check for player death
         for asteroid in asteroids:
             if player.collision(asteroid):
-                return "START_SCREEN"
+                player.explode()
             # collision check for asteroid kill
             for shot in shots:
                 if shot.collision(asteroid):
