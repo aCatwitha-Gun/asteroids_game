@@ -32,14 +32,28 @@ def game_loop(screen, dt):
         updatable.update(dt)
 
         # collision check for player death
-        for asteroid in asteroids:
+        for asteroid in asteroids.copy():
             if player.collision(asteroid):
-                player.explode()
+                # check if player is invincible
+                if not player.invincible_state:
+                    player.life -= 1
+                    player.start_invincibility()
+
+                    # break the asteroid the player collided with
+                    asteroid.split(asteroid.position)
+                    player.explode()
+                    
+                    #return to menu if player is out of lives
+                    if player.life <= 0:
+                        return "START_SCREEN"
+
             # collision check for asteroid kill
             for shot in shots:
                 if shot.collision(asteroid):
                     asteroid.split(asteroid.position)
                     shot.kill()
+                    player.score += 1
+                    print(f"Player score: {player.score}")
 
         # fill the screen with black
         screen.fill("black")

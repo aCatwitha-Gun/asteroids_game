@@ -25,7 +25,10 @@ class Player(CircleShape):
         self.explosion_particles = []
         self.explosion_speed = PLAYER_DEATH_SPEED
         self.explosion_timer = 0
+        self.invincible_time = PLAYER_INVINCIBLE_TIMER
+        self.invincible_state = False
         self.life = 3
+        self.score = 0
 
     # in the player class
     def triangle(self):
@@ -65,6 +68,13 @@ class Player(CircleShape):
 
     # update method override
     def update(self, dt):
+
+        # update invincible state during colision
+        if self.invincible_state:
+            self.invincible_time -= 1
+            if self.invincible_time <= 0:
+                self.invincible_state = False
+
         if self.is_exploding:
             # update the explosion animation
             if self.explosion_timer > 0:
@@ -126,3 +136,8 @@ class Player(CircleShape):
             velocity *= random.uniform(1.5, 3.0)
 
             self.explosion_particles.append(Particle(p1, p2, velocity))
+
+    # player invincibility timer for collision
+    def start_invincibility(self):
+        self.invincible_state = True
+        self.invincible_time = PLAYER_INVINCIBLE_TIMER
