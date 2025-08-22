@@ -4,6 +4,7 @@ from player import Player
 from shot import Shot
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from highscore import *
 
 def game_loop(screen, dt):
     updatable = pygame.sprite.Group()
@@ -21,6 +22,7 @@ def game_loop(screen, dt):
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     dt = 0
     clock = pygame.time.Clock()
+    PLAYER_SCORE = 0
     # inifinit while loop used for the game loop
     while True:
         
@@ -45,7 +47,9 @@ def game_loop(screen, dt):
                     
                     #return to menu if player is out of lives
                     if player.life <= 0:
-                        return "START_SCREEN"
+                        save_current_score(player.score)
+                        save_high_score(player.score)
+                        return "GAME_OVER"
 
             # collision check for asteroid kill
             for shot in shots:

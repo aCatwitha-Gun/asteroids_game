@@ -16,6 +16,9 @@ PLAYER_SHOOT_COOLDOWN = 0.3
 PLAYER_SHOT_SPEED = 500
 SHOT_RADIUS = 5
 
+HIGH_SCORE_FILE = "highscore.txt"
+CURRENT_SCORE_FILE = "currentscore.txt"
+
 # colors
 black = (0, 0, 0)
 white = (255, 255, 255)
